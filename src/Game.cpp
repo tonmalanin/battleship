@@ -1,16 +1,16 @@
 #include "../include/Game.h"
 
-int decide_winner(std::vector<Player *> &players) {
-  std::vector<int> players_left;
+Player *decide_winner(std::vector<Player *> &players) {
+  std::vector<Player *> players_left;
   for (auto player : players) {
     if (!(*player).lost()) {
-      players_left.push_back((*player).get_id());
+      players_left.push_back(player);
     }
   }
   if (players_left.size() == 1) {
     return players_left[0];
   }
-  return 0;
+  return nullptr;
 }
 
 void make_shot(std::vector<Player *> &players, int attacker) {
@@ -20,24 +20,31 @@ void make_shot(std::vector<Player *> &players, int attacker) {
 
 void do_game() {
   std::cout << "Game started" << std::endl;
-  Field field1;
-  Field field2;
-  Player player1(1, field1);
-  Player player2(2, field2);
+  Player player1 = add_player(1);
+  Player player2 = add_player(2);
   std::vector<Player *> players = {&player1, &player2};
   install_ships(players);
   int turn = 0;
-  int winner = 0;
-  while (winner == 0) {
+  Player *winner = nullptr;
+  while (winner == nullptr) {
     make_shot(players, turn);
     turn = (turn + 1) % players.size();
     winner = decide_winner(players);
   }
-  std::cout << "Player " << winner << " won";
+  std::cout << "Player " << (*winner).get_name() << " won";
 }
 
 void install_ships(std::vector<Player *> &players) {
   for (auto player : players) {
     (*player).place_ships();
   }
+}
+
+Player add_player(int id) {
+  Field field;
+  std::cout << "You're player " << id << ". Enter you name: ";
+  std::string name;
+  std::cin >> name;
+  Player player(name, field);
+  return player;
 }

@@ -1,9 +1,9 @@
 #include "../include/Player.h"
 
-Player::Player(int id, const Field &field) : id(id), fld(field) {}
+Player::Player(std::string &name, const Field &field) : name(name), fld(field) {}
 
 void Player::place_ships() {
-  std::cout << "You're player " << id << std::endl;
+  std::cout << "Place your ships, " << name << std::endl;
   for (int i = 0; i < kShipsNumber; ++i) {
     while (true) {
       std::cout << "Enter the coordinates of the bow of a ship of length " << ships_size[i] << ": ";
@@ -39,7 +39,7 @@ void Player::place_ships() {
 }
 
 void Player::fire(Player *other) const {
-  std::cout << "You're player " << id << std::endl;
+  std::cout << "Make your move, " << name << std::endl;
   int x;
   int y;
   while (true) {
@@ -65,15 +65,15 @@ void Player::fire(Player *other) const {
   (*other).fld.hit_field(x, y);
 }
 
-int Player::get_id() const {
-  return id;
+std::string &Player::get_name() {
+  return name;
 }
 
 bool Player::lost() {
   return fld.get_ships() == 0;
 }
 
-void check_coords(std::string& coords){
+void check_coords(std::string &coords) {
   if (coords.size() != 2 or coords[0] < 'A' or coords[0] > 'J' or coords[1] < '0' or coords[1] > '9') {
     throw "Incorrect coordinates! Enter again!";
   }

@@ -15,9 +15,7 @@ void Field::create_ship(int lth, int x, int y, char orient) {
   int curr_y = y;
   for (int i = 0; i < lth; ++i) {
     check_coords(curr_x, curr_y);
-    if (mt[curr_x][curr_y].id != nullptr) {
-      throw "The new ship intersects with the old one! Enter again!";
-    }
+    check_surroundings(curr_x, curr_y);
     if (orient == 'n') {
       --curr_x;
     } else if (orient == 'e') {
@@ -73,4 +71,18 @@ void Field::hit_field(int x, int y) {
 
 int Field::get_ships() const {
   return ships_num;
+}
+
+void Field::check_surroundings(int x, int y) {
+  if (mt[x][y].id != nullptr or
+      (x != 0 and mt[x - 1][y].id != nullptr) or
+      (x != 0 and y != sz - 1 and mt[x - 1][y + 1].id != nullptr) or
+      (y != sz - 1 and mt[x][y + 1].id != nullptr) or
+      (x != sz - 1 and y != sz - 1 and mt[x + 1][y + 1].id != nullptr) or
+      (x != sz - 1 and mt[x + 1][y].id != nullptr) or
+      (x != sz - 1 and y != 0 and mt[x + 1][y - 1].id != nullptr) or
+      (y != 0 and mt[x][y - 1].id != nullptr) or
+      (x != 0 and y != 0 and mt[x - 1][y - 1].id != nullptr)) {
+    throw "The new ship touches with the old one! Enter again!";
+  }
 }

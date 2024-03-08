@@ -17,18 +17,18 @@ void Player::place_ships() {
       }
       int x = coords[1] - '0';
       int y = coords[0] - 'A';
-      char orient;
+      std::string orient;
       while (true) {
         std::cout << "Enter ship orientation (n/e/s/w): ";
         std::cin >> orient;
-        if (orient != 'n' and orient != 'e' and orient != 's' and orient != 'w') {
+        if (orient.size() != 1 or (orient[0] != 'n' and orient[0] != 'e' and orient[0] != 's' and orient[0] != 'w')) {
           std::cout << "Incorrect orientation! Enter again!" << std::endl;
           continue;
         }
         break;
       }
       try {
-        fld.create_ship(ships_size[i], x, y, orient);
+        fld.create_ship(ships_size[i], x, y, orient[0]);
       } catch (const char *error_message) {
         std::cout << error_message << std::endl;
         continue;

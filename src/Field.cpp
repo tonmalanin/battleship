@@ -53,7 +53,6 @@ void Field::check_coords(int x, int y) const {
 }
 
 void Field::check_shot(int x, int y) {
-  check_coords(x, y);
   if (mt[x][y].was_hit) {
     throw "You've already shot there! Enter the coordinates again!";
   }

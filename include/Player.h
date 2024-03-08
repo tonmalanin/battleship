@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 
 #include "Field.h"
 
@@ -22,4 +23,7 @@ class Player {
   int get_id() const;
 
   bool lost();
+
 };
+
+void check_coords(std::string& coords);

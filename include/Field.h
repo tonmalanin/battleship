@@ -11,13 +11,14 @@ class Field {
 
   struct Cell {
     bool was_hit = false;
-    Ship *id = nullptr;
+    int id = -1;
     int part = 0;
   };
 
   int sz;
   std::vector<std::vector<Cell>> mt;
   int ships_num;
+  std::vector<Ship> ships;
 
  public:
   explicit Field(int sz);
@@ -35,4 +36,8 @@ class Field {
   int get_ships() const;
 
   void check_surroundings(int x, int y);
+
+  void display_other_field();
+
+  void display_own_field();
 };

@@ -8,11 +8,14 @@ class Ship {
   int sz;
   int state;
   std::vector<bool> parts;
+  char orient;
 
  public:
-  explicit Ship(int sz);
+  explicit Ship(int sz, char orient);
 
   void get_shot(int part);
 
   bool check_state() const;
+
+  void display_ship() const;
 };

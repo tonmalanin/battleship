@@ -6,6 +6,7 @@ void Player::place_ships() {
   std::cout << "Place your ships, " << name << std::endl;
   for (int i = 0; i < kShipsNumber; ++i) {
     while (true) {
+      fld.display_own_field();
       std::cout << "Enter the coordinates of the bow of a ship of length " << ships_size[i] << ": ";
       std::string coords;
       std::cin >> coords;
@@ -40,6 +41,7 @@ void Player::place_ships() {
 
 void Player::fire(Player *other) const {
   std::cout << "Make your move, " << name << std::endl;
+  (*other).fld.display_other_field();
   int x;
   int y;
   while (true) {

@@ -3,9 +3,13 @@
 Player::Player(std::string &name, const Field &field) : name(name), fld(field) {}
 
 void Player::place_ships() {
+  sleep(2);
+  system("clear");
   std::cout << "Place your ships, " << name << std::endl;
   for (int i = 0; i < kShipsNumber; ++i) {
     while (true) {
+      sleep(2);
+      system("clear");
       fld.display_own_field();
       std::cout << "Enter the coordinates of the bow of a ship of length " << ships_size[i] << ": ";
       std::string coords;
@@ -40,6 +44,8 @@ void Player::place_ships() {
 }
 
 void Player::fire(Player *other) const {
+  sleep(2);
+  system("clear");
   std::cout << "Make your move, " << name << std::endl;
   (*other).fld.display_other_field();
   int x;

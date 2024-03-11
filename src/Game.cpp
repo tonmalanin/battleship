@@ -19,6 +19,7 @@ void make_shot(std::vector<Player *> &players, int attacker) {
 }
 
 void do_game() {
+  system("clear");
   std::cout << "Game started" << std::endl;
   Player player1 = add_player(1);
   Player player2 = add_player(2);
@@ -31,6 +32,8 @@ void do_game() {
     turn = (turn + 1) % players.size();
     winner = decide_winner(players);
   }
+  sleep(2);
+  system("clear");
   std::cout << "Player " << (*winner).get_name() << " won";
 }
 
@@ -42,6 +45,8 @@ void install_ships(std::vector<Player *> &players) {
 
 Player add_player(int id) {
   Field field;
+  sleep(2);
+  system("clear");
   std::cout << "You're player " << id << ". Enter you name: ";
   std::string name;
   std::cin >> name;

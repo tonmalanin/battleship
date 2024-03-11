@@ -70,7 +70,7 @@ void Field::hit_field(int x, int y) {
   }
 }
 
-int Field::get_ships() const {
+int Field::get_ships_num() const {
   return ships_num;
 }
 

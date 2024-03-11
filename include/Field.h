@@ -33,7 +33,7 @@ class Field {
 
   void hit_field(int x, int y);
 
-  int get_ships() const;
+  int get_ships_num() const;
 
   void check_surroundings(int x, int y);
 

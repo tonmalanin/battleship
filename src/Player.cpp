@@ -72,7 +72,7 @@ std::string &Player::get_name() {
 }
 
 bool Player::lost() {
-  return fld.get_ships() == 0;
+  return fld.get_ships_num() == 0;
 }
 
 void check_coords(std::string &coords) {

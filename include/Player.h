@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 #include <string>
 #include <unistd.h>
 
@@ -19,7 +20,7 @@ class Player {
 
   void place_ships();
 
-  void fire(Player *other) const;
+  void fire(Player &other) const;
 
   std::string &get_name();
 

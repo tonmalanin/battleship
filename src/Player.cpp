@@ -17,7 +17,7 @@ void Player::place_ships() {
       try {
         check_coords(coords);
       } catch (...) {
-        std::cout <<  std::endl;
+        std::cout << std::endl;
         continue;
       }
       int x = coords[1] - '0';
@@ -43,11 +43,11 @@ void Player::place_ships() {
   }
 }
 
-void Player::fire(Player *other) const {
+void Player::fire(Player &other) const {
   sleep(2);
   system("clear");
   std::cout << "Make your move, " << name << std::endl;
-  (*other).fld.display_other_field();
+  other.fld.display_other_field();
   int x;
   int y;
   while (true) {
@@ -63,14 +63,14 @@ void Player::fire(Player *other) const {
     x = coords[1] - '0';
     y = coords[0] - 'A';
     try {
-      (*other).fld.check_shot(x, y);
+      other.fld.check_shot(x, y);
     } catch (...) {
       std::cout << std::endl;
       continue;
     }
     break;
   }
-  (*other).fld.hit_field(x, y);
+  other.fld.hit_field(x, y);
 }
 
 std::string &Player::get_name() {

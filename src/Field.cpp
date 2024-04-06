@@ -77,15 +77,7 @@ int Field::get_ships_num() const {
 }
 
 void Field::check_surroundings(int x, int y) {
-  if (mt[x][y].id != -1 or
-      (x != 0 and mt[x - 1][y].id != -1) or
-      (x != 0 and y != sz - 1 and mt[x - 1][y + 1].id != -1) or
-      (y != sz - 1 and mt[x][y + 1].id != -1) or
-      (x != sz - 1 and y != sz - 1 and mt[x + 1][y + 1].id != -1) or
-      (x != sz - 1 and mt[x + 1][y].id != -1) or
-      (x != sz - 1 and y != 0 and mt[x + 1][y - 1].id != -1) or
-      (y != 0 and mt[x][y - 1].id != -1) or
-      (x != 0 and y != 0 and mt[x - 1][y - 1].id != -1)) {
+  if (mt[x][y].id != -1 or (x != 0 and mt[x - 1][y].id != -1) or (x != 0 and y != sz - 1 and mt[x - 1][y + 1].id != -1) or (y != sz - 1 and mt[x][y + 1].id != -1) or (x != sz - 1 and y != sz - 1 and mt[x + 1][y + 1].id != -1) or (x != sz - 1 and mt[x + 1][y].id != -1) or (x != sz - 1 and y != 0 and mt[x + 1][y - 1].id != -1) or (y != 0 and mt[x][y - 1].id != -1) or (x != 0 and y != 0 and mt[x - 1][y - 1].id != -1)) {
     std::cout << "The new ship touches with the old one! Enter again!";
     throw std::exception();
   }

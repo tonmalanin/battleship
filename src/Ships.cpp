@@ -18,7 +18,7 @@ bool Ship::check_state() const {
   return state > 0;
 }
 
-void Ship::display_ship() const{
+void Ship::display_ship() const {
   if (orient == 'n') {
     std::cout << "^ ";
   } else if (orient == 'w') {

@@ -16,8 +16,8 @@ void Player::place_ships() {
       std::cin >> coords;
       try {
         check_coords(coords);
-      } catch (const char *error_message) {
-        std::cout << error_message << std::endl;
+      } catch (...) {
+        std::cout <<  std::endl;
         continue;
       }
       int x = coords[1] - '0';
@@ -34,8 +34,8 @@ void Player::place_ships() {
       }
       try {
         fld.create_ship(ships_size[i], x, y, orient[0]);
-      } catch (const char *error_message) {
-        std::cout << error_message << std::endl;
+      } catch (...) {
+        std::cout << std::endl;
         continue;
       }
       break;
@@ -56,16 +56,16 @@ void Player::fire(Player *other) const {
     std::cin >> coords;
     try {
       check_coords(coords);
-    } catch (const char *error_message) {
-      std::cout << error_message << std::endl;
+    } catch (...) {
+      std::cout << std::endl;
       continue;
     }
     x = coords[1] - '0';
     y = coords[0] - 'A';
     try {
       (*other).fld.check_shot(x, y);
-    } catch (const char *error_message) {
-      std::cout << error_message << std::endl;
+    } catch (...) {
+      std::cout << std::endl;
       continue;
     }
     break;
@@ -83,6 +83,7 @@ bool Player::lost() {
 
 void check_coords(std::string &coords) {
   if (coords.size() != 2 or coords[0] < 'A' or coords[0] > 'J' or coords[1] < '0' or coords[1] > '9') {
-    throw "Incorrect coordinates! Enter again!";
+    std::cout << "Incorrect coordinates! Enter again!";
+    throw std::exception();
   }
 }

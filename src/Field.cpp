@@ -47,13 +47,15 @@ void Field::create_ship(int lth, int x, int y, char orient) {
 
 void Field::check_coords(int x, int y) const {
   if (x < 0 or x >= sz or y < 0 or y >= sz) {
-    throw "Out of bounds! Enter again!";
+    std::cout << "Out of bounds! Enter again!";
+    throw std::exception();
   }
 }
 
 void Field::check_shot(int x, int y) {
   if (mt[x][y].was_hit) {
-    throw "You've already shot there! Enter the coordinates again!";
+    std::cout << "You've already shot there! Enter the coordinates again!";
+    throw std::exception();
   }
 }
 
@@ -84,7 +86,8 @@ void Field::check_surroundings(int x, int y) {
       (x != sz - 1 and y != 0 and mt[x + 1][y - 1].id != -1) or
       (y != 0 and mt[x][y - 1].id != -1) or
       (x != 0 and y != 0 and mt[x - 1][y - 1].id != -1)) {
-    throw "The new ship touches with the old one! Enter again!";
+    std::cout << "The new ship touches with the old one! Enter again!";
+    throw std::exception();
   }
 }
 

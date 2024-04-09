@@ -10,7 +10,9 @@ add_executable(battleship main.cpp
                             include/Game.h
                             include/Player.h
                             include/Ships.h
+                            include/IOManager.h
                             src/Field.cpp
                             src/Game.cpp
                             src/Player.cpp
-                            src/Ships.cpp)
+                            src/Ships.cpp
+                            src/IOManager.cpp)

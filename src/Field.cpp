@@ -47,27 +47,29 @@ void Field::create_ship(int lth, int x, int y, char orient) {
 
 void Field::check_coords(int x, int y) const {
   if (x < 0 or x >= sz or y < 0 or y >= sz) {
-    std::cout << "Out of bounds! Enter again!";
+    report_error(Error::Coords);
     throw std::exception();
   }
 }
 
 void Field::check_shot(int x, int y) {
   if (mt[x][y].was_hit) {
-    std::cout << "You've already shot there! Enter the coordinates again!";
+    report_error(Error::Shot);
     throw std::exception();
   }
 }
 
 void Field::hit_field(int x, int y) {
-  std::cout << "Executing shot" << std::endl;
   mt[x][y].was_hit = true;
   if (mt[x][y].id == -1) {
-    std::cout << "Miss!" << std::endl;
+    shot_results_report(-1);
   } else {
     ships[mt[x][y].id].get_shot(mt[x][y].part);
     if (!ships[mt[x][y].id].check_state()) {
       --ships_num;
+      shot_results_report(0);
+    } else {
+      shot_results_report(1);
     }
   }
 }
@@ -78,49 +80,39 @@ int Field::get_ships_num() const {
 
 void Field::check_surroundings(int x, int y) {
   if (mt[x][y].id != -1 or (x != 0 and mt[x - 1][y].id != -1) or (x != 0 and y != sz - 1 and mt[x - 1][y + 1].id != -1) or (y != sz - 1 and mt[x][y + 1].id != -1) or (x != sz - 1 and y != sz - 1 and mt[x + 1][y + 1].id != -1) or (x != sz - 1 and mt[x + 1][y].id != -1) or (x != sz - 1 and y != 0 and mt[x + 1][y - 1].id != -1) or (y != 0 and mt[x][y - 1].id != -1) or (x != 0 and y != 0 and mt[x - 1][y - 1].id != -1)) {
-    std::cout << "The new ship touches with the old one! Enter again!";
+    report_error(Error::Surroundings);
     throw std::exception();
   }
 }
 
 void Field::display_other_field() {
+  std::vector<std::vector<char>> field_char(10);
   for (int i = 0; i < 10; ++i) {
-    std::cout << 'A' + i;
-  }
-  std::cout << std::endl;
-  for (int i = 0; i < 10; ++i) {
-    std::cout << i;
     for (int j = 0; j < 10; ++j) {
       if (!mt[i][j].was_hit) {
-        std::cout << '?';
+        field_char[i].push_back('?');
       } else {
         if (mt[i][j].id == -1) {
-          std::cout << 'o';
+          field_char[i].push_back('o');
         } else {
-          std::cout << 'x';
+          field_char[i].push_back('x');
         }
       }
     }
-    std::cout << std::endl;
   }
+  draw_field(field_char);
 }
 
 void Field::display_own_field() {
-  std::cout << "  ";
+  std::vector<std::vector<char>> field_char(10);
   for (int i = 0; i < 10; ++i) {
-    char column = 'A' + i;
-    std::cout << column << ' ';
-  }
-  std::cout << std::endl;
-  for (int i = 0; i < 10; ++i) {
-    std::cout << i << ' ';
     for (int j = 0; j < 10; ++j) {
       if (mt[i][j].id == -1) {
-        std::cout << "# ";
+        field_char[i].push_back('#');
       } else {
-        ships[mt[i][j].id].display_ship();
+        field_char[i].push_back(ships[mt[i][j].id].get_orient());
       }
     }
-    std::cout << std::endl;
   }
+  draw_field(field_char);
 }

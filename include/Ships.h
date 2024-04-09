@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 
+#include "IOManager.h"
+
 class Ship {
  private:
   int sz;
@@ -17,5 +19,5 @@ class Ship {
 
   bool check_state() const;
 
-  void display_ship() const;
+  char get_orient() const;
 };

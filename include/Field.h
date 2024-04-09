@@ -1,8 +1,8 @@
 #pragma once
 
-#include <iostream>
 #include <vector>
 
+#include "IOManager.h"
 #include "Ships.h"
 
 class Field {

@@ -1,10 +1,9 @@
 #pragma once
 
-#include <iostream>
 #include <memory>
-#include <unistd.h>
 
 #include "Field.h"
+#include "IOManager.h"
 #include "Player.h"
 
 std::shared_ptr<Player> decide_winner(std::vector<Player> &players);

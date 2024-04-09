@@ -1,11 +1,10 @@
 #pragma once
 
-#include <iostream>
 #include <memory>
 #include <string>
-#include <unistd.h>
 
 #include "Field.h"
+#include "IOManager.h"
 
 class Player {
  private:
@@ -26,5 +25,3 @@ class Player {
 
   bool lost();
 };
-
-void check_coords(std::string &coords);

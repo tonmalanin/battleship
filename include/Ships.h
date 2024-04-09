@@ -1,9 +1,6 @@
 #pragma once
 
-#include <iostream>
 #include <vector>
-
-#include "IOManager.h"
 
 class Ship {
  private:

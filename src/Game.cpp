@@ -35,9 +35,8 @@ void do_game() {
 }
 
 void install_ships(std::vector<Player> &players) {
-  for (auto player : players) {
-    player.place_ships();
-  }
+  players[0].place_ships();
+  players[1].place_ships();
 }
 
 Player add_player(int id) {

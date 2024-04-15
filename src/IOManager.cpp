@@ -122,3 +122,12 @@ void notify(Notice note, const std::string &name) {
       break;
   }
 }
+
+void settings_change_report(bool& is_random) {
+  std::cout << "Place ships randomly? (y/n): ";
+  char fl;
+  std::cin >> fl;
+  if (fl == 'y') {
+    is_random = true;
+  }
+}

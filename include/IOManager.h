@@ -30,3 +30,5 @@ enum class Notice { Place,
                     Move };
 
 void notify(Notice note, const std::string &player);
+
+void settings_change_report(bool& is_random);

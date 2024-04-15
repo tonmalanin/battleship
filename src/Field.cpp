@@ -9,12 +9,16 @@ Field::Field(int sz) : sz(sz), ships_num(0) {
 
 Field::Field() : Field(kSize) {}
 
-void Field::create_ship(int lth, int x, int y, char orient) {
+void Field::create_ship(int lth, int x, int y, char orient, bool is_bot) {
+  if (is_bot) {
+    x %= sz;
+    y %= sz;
+  }
   int curr_x = x;
   int curr_y = y;
   for (int i = 0; i < lth; ++i) {
-    check_coords(curr_x, curr_y);
-    check_surroundings(curr_x, curr_y);
+    check_coords(curr_x, curr_y, is_bot);
+    check_surroundings(curr_x, curr_y, is_bot);
     if (orient == 'n') {
       ++curr_x;
     } else if (orient == 'e') {
@@ -45,9 +49,11 @@ void Field::create_ship(int lth, int x, int y, char orient) {
   ++ships_num;
 }
 
-void Field::check_coords(int x, int y) const {
+void Field::check_coords(int x, int y, bool is_bot) const {
   if (x < 0 or x >= sz or y < 0 or y >= sz) {
-    report_error(Error::Coords);
+    if (!is_bot) {
+      report_error(Error::Coords);
+    }
     throw std::exception();
   }
 }
@@ -78,17 +84,19 @@ int Field::get_ships_num() const {
   return ships_num;
 }
 
-void Field::check_surroundings(int x, int y) {
+void Field::check_surroundings(int x, int y, bool is_bot) {
   if (mt[x][y].id != -1 or (x != 0 and mt[x - 1][y].id != -1) or (x != 0 and y != sz - 1 and mt[x - 1][y + 1].id != -1) or (y != sz - 1 and mt[x][y + 1].id != -1) or (x != sz - 1 and y != sz - 1 and mt[x + 1][y + 1].id != -1) or (x != sz - 1 and mt[x + 1][y].id != -1) or (x != sz - 1 and y != 0 and mt[x + 1][y - 1].id != -1) or (y != 0 and mt[x][y - 1].id != -1) or (x != 0 and y != 0 and mt[x - 1][y - 1].id != -1)) {
-    report_error(Error::Surroundings);
+    if (!is_bot) {
+      report_error(Error::Surroundings);
+    }
     throw std::exception();
   }
 }
 
 void Field::display_other_field() {
-  std::vector<std::vector<char>> field_char(10);
-  for (int i = 0; i < 10; ++i) {
-    for (int j = 0; j < 10; ++j) {
+  std::vector<std::vector<char>> field_char(sz);
+  for (int i = 0; i < sz; ++i) {
+    for (int j = 0; j < sz; ++j) {
       if (!mt[i][j].was_hit) {
         field_char[i].push_back('?');
       } else {
@@ -104,9 +112,9 @@ void Field::display_other_field() {
 }
 
 void Field::display_own_field() {
-  std::vector<std::vector<char>> field_char(10);
-  for (int i = 0; i < 10; ++i) {
-    for (int j = 0; j < 10; ++j) {
+  std::vector<std::vector<char>> field_char(sz);
+  for (int i = 0; i < sz; ++i) {
+    for (int j = 0; j < sz; ++j) {
       if (mt[i][j].id == -1) {
         field_char[i].push_back('#');
       } else {

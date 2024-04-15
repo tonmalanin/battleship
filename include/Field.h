@@ -25,9 +25,9 @@ class Field {
 
   Field();
 
-  void create_ship(int lth, int x, int y, char orient);
+  void create_ship(int lth, int x, int y, char orient, bool is_bot);
 
-  void check_coords(int x, int y) const;
+  void check_coords(int x, int y, bool is_bot) const;
 
   void check_shot(int x, int y);
 
@@ -35,7 +35,7 @@ class Field {
 
   int get_ships_num() const;
 
-  void check_surroundings(int x, int y);
+  void check_surroundings(int x, int y, bool is_bot);
 
   void display_other_field();
 

@@ -27,8 +27,10 @@ std::string get_coords(int size);
 std::string get_orient();
 
 enum class Notice { Place,
-                    Move };
+                    Move,
+                    YourField,
+                    OtherField };
 
 void notify(Notice note, const std::string &player);
 
-void settings_change_report(bool& is_random);
+void settings_change_report(bool &is_random);

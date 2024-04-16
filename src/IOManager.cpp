@@ -50,8 +50,6 @@ void display_ship(char orient) {
 }
 
 void draw_field(std::vector<std::vector<char>> &field_char) {
-  sleep(2);
-  system("clear");
   std::cout << "  ";
   for (int i = 0; i < 10; ++i) {
     char column = 'A' + i;
@@ -111,14 +109,22 @@ std::string get_orient() {
 }
 
 void notify(Notice note, const std::string &name) {
-  sleep(2);
-  system("clear");
+  if (note != Notice::OtherField) {
+    sleep(2);
+    system("clear");
+  }
   switch (note) {
     case Notice::Place:
       std::cout << "Place your ships, " << name << std::endl;
       break;
     case Notice::Move:
       std::cout << "Make your move, " << name << std::endl;
+      break;
+    case Notice::YourField:
+      std::cout << "Your field:" << std::endl;
+      break;
+    case Notice::OtherField:
+      std::cout << "Enemy's field:" << std::endl;
       break;
   }
 }

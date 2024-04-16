@@ -94,6 +94,7 @@ void Field::check_surroundings(int x, int y, bool is_bot) {
 }
 
 void Field::display_other_field() {
+  notify(Notice::OtherField, "");
   std::vector<std::vector<char>> field_char(sz);
   for (int i = 0; i < sz; ++i) {
     for (int j = 0; j < sz; ++j) {
@@ -111,12 +112,15 @@ void Field::display_other_field() {
   draw_field(field_char);
 }
 
-void Field::display_own_field() {
+void Field::display_own_field() const {
+  notify(Notice::YourField, "");
   std::vector<std::vector<char>> field_char(sz);
   for (int i = 0; i < sz; ++i) {
     for (int j = 0; j < sz; ++j) {
       if (mt[i][j].id == -1) {
         field_char[i].push_back('#');
+      } else if (mt[i][j].was_hit) {
+        field_char[i].push_back('x');
       } else {
         field_char[i].push_back(ships[mt[i][j].id].get_orient());
       }

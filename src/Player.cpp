@@ -49,6 +49,7 @@ void Player::fire(Player &other) const {
   int x;
   int y;
   while (true) {
+    fld.display_own_field();
     other.fld.display_other_field();
     std::string coords;
     try {

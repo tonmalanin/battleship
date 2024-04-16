@@ -39,5 +39,5 @@ class Field {
 
   void display_other_field();
 
-  void display_own_field();
+  void display_own_field() const;
 };

@@ -93,12 +93,23 @@ void Field::check_surroundings(int x, int y, bool is_bot) {
   }
 }
 
+bool Field::check_sunken_around(int x, int y) {
+  return (x != 0 and mt[x - 1][y].id != -1 and !ships[mt[x - 1][y].id].check_state()) or
+      (x != 0 and y != sz - 1 and mt[x - 1][y + 1].id != -1 and !ships[mt[x - 1][y + 1].id].check_state()) or
+      (y != sz - 1 and mt[x][y + 1].id != -1 and !ships[mt[x][y + 1].id].check_state()) or
+      (x != sz - 1 and y != sz - 1 and mt[x + 1][y + 1].id != -1 and !ships[mt[x + 1][y + 1].id].check_state()) or
+      (x != sz - 1 and mt[x + 1][y].id != -1 and !ships[mt[x + 1][y].id].check_state()) or
+      (x != sz - 1 and y != 0 and mt[x + 1][y - 1].id != -1 and !ships[mt[x + 1][y - 1].id].check_state()) or
+      (y != 0 and mt[x][y - 1].id != -1 and !ships[mt[x][y - 1].id].check_state()) or
+      (x != 0 and y != 0 and mt[x - 1][y - 1].id != -1 and !ships[mt[x - 1][y - 1].id].check_state());
+}
+
 void Field::display_other_field() {
   notify(Notice::OtherField, "");
   std::vector<std::vector<char>> field_char(sz);
   for (int i = 0; i < sz; ++i) {
     for (int j = 0; j < sz; ++j) {
-      if (!mt[i][j].was_hit) {
+      if (!mt[i][j].was_hit and !check_sunken_around(i, j)) {
         field_char[i].push_back('?');
       } else {
         if (mt[i][j].id == -1) {

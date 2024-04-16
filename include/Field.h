@@ -40,4 +40,6 @@ class Field {
   void display_other_field();
 
   void display_own_field() const;
+
+  bool check_sunken_around(int x, int y);
 };

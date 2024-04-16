@@ -20,8 +20,10 @@ void make_shot(std::vector<Player> &players, int attacker) {
 
 void do_game() {
   start_message();
-  Player player1 = add_player(1);
-  Player player2 = add_player(2);
+  bool is_single = false;
+  settings_change_report(Settings::Mode, is_single);
+  Player player1 = add_player(1, false);
+  Player player2 = add_player(2, is_single);
   std::vector<Player> players = {player1, player2};
   install_ships(players);
   int turn = 0;
@@ -39,9 +41,14 @@ void install_ships(std::vector<Player> &players) {
   players[1].place_ships();
 }
 
-Player add_player(int id) {
+Player add_player(int id, bool is_bot) {
   Field field;
-  std::string name = greetings(id);
-  Player player(name, field);
+  std::string name;
+  if (!is_bot) {
+    name = greetings(id);
+  } else {
+    name = "";
+  }
+  Player player(name, field, is_bot);
   return player;
 }

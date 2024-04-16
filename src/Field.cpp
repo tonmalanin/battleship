@@ -58,14 +58,20 @@ void Field::check_coords(int x, int y, bool is_bot) const {
   }
 }
 
-void Field::check_shot(int x, int y) {
+void Field::check_shot(int x, int y, bool is_bot) {
+  x %= sz;
+  y %= sz;
   if (mt[x][y].was_hit) {
-    report_error(Error::Shot);
+    if (!is_bot) {
+      report_error(Error::Shot);
+    }
     throw std::exception();
   }
 }
 
 void Field::hit_field(int x, int y) {
+  x %= sz;
+  y %= sz;
   mt[x][y].was_hit = true;
   if (mt[x][y].id == -1) {
     shot_results_report(-1);
@@ -94,14 +100,7 @@ void Field::check_surroundings(int x, int y, bool is_bot) {
 }
 
 bool Field::check_sunken_around(int x, int y) {
-  return (x != 0 and mt[x - 1][y].id != -1 and !ships[mt[x - 1][y].id].check_state()) or
-      (x != 0 and y != sz - 1 and mt[x - 1][y + 1].id != -1 and !ships[mt[x - 1][y + 1].id].check_state()) or
-      (y != sz - 1 and mt[x][y + 1].id != -1 and !ships[mt[x][y + 1].id].check_state()) or
-      (x != sz - 1 and y != sz - 1 and mt[x + 1][y + 1].id != -1 and !ships[mt[x + 1][y + 1].id].check_state()) or
-      (x != sz - 1 and mt[x + 1][y].id != -1 and !ships[mt[x + 1][y].id].check_state()) or
-      (x != sz - 1 and y != 0 and mt[x + 1][y - 1].id != -1 and !ships[mt[x + 1][y - 1].id].check_state()) or
-      (y != 0 and mt[x][y - 1].id != -1 and !ships[mt[x][y - 1].id].check_state()) or
-      (x != 0 and y != 0 and mt[x - 1][y - 1].id != -1 and !ships[mt[x - 1][y - 1].id].check_state());
+  return (x != 0 and mt[x - 1][y].id != -1 and !ships[mt[x - 1][y].id].check_state()) or (x != 0 and y != sz - 1 and mt[x - 1][y + 1].id != -1 and !ships[mt[x - 1][y + 1].id].check_state()) or (y != sz - 1 and mt[x][y + 1].id != -1 and !ships[mt[x][y + 1].id].check_state()) or (x != sz - 1 and y != sz - 1 and mt[x + 1][y + 1].id != -1 and !ships[mt[x + 1][y + 1].id].check_state()) or (x != sz - 1 and mt[x + 1][y].id != -1 and !ships[mt[x + 1][y].id].check_state()) or (x != sz - 1 and y != 0 and mt[x + 1][y - 1].id != -1 and !ships[mt[x + 1][y - 1].id].check_state()) or (y != 0 and mt[x][y - 1].id != -1 and !ships[mt[x][y - 1].id].check_state()) or (x != 0 and y != 0 and mt[x - 1][y - 1].id != -1 and !ships[mt[x - 1][y - 1].id].check_state());
 }
 
 void Field::display_other_field() {

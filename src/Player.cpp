@@ -1,11 +1,13 @@
 #include "../include/Player.h"
 
-Player::Player(std::string &name, const Field &field) : name(name), fld(field) {}
+Player::Player(std::string &name, const Field &field, bool is_bot) : name(name), fld(field), is_bot(is_bot) {}
 
 void Player::place_ships() {
-  notify(Notice::Place, name);
-  bool is_random = false;
-  settings_change_report(is_random);
+  bool is_random = is_bot;
+  if (!is_bot) {
+    notify(Notice::Place, name);
+    settings_change_report(Settings::Random, is_random);
+  }
   for (int i = 0; i < kShipsNumber; ++i) {
     while (true) {
       int x, y;
@@ -38,29 +40,41 @@ void Player::place_ships() {
       break;
     }
   }
-  if (is_random) {
+  if (is_random and !is_bot) {
     fld.display_own_field();
     sleep(2);
   }
 }
 
 void Player::fire(Player &other) const {
-  notify(Notice::Move, name);
+  if (!is_bot) {
+    notify(Notice::Move, name);
+  } else {
+    notify(Notice::EnemyMove, "");
+  }
   int x;
   int y;
   while (true) {
-    fld.display_own_field();
-    other.fld.display_other_field();
-    std::string coords;
-    try {
-      coords = get_coords(0);
-    } catch (...) {
-      continue;
+    if (!is_bot) {
+      fld.display_own_field();
+      other.fld.display_other_field();
+      std::string coords;
+      try {
+        coords = get_coords(0);
+      } catch (...) {
+        continue;
+      }
+      x = coords[1] - '0';
+      y = coords[0] - 'A';
+    } else {
+      std::mt19937 rnd(std::chrono::steady_clock::now().time_since_epoch().count());
+      x = rnd();
+      y = rnd();
+      x = abs(x);
+      y = abs(y);
     }
-    x = coords[1] - '0';
-    y = coords[0] - 'A';
     try {
-      other.fld.check_shot(x, y);
+      other.fld.check_shot(x, y, is_bot);
     } catch (...) {
       continue;
     }

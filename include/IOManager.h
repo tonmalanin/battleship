@@ -29,8 +29,11 @@ std::string get_orient();
 enum class Notice { Place,
                     Move,
                     YourField,
-                    OtherField };
+                    OtherField,
+                    EnemyMove };
 
 void notify(Notice note, const std::string &player);
 
-void settings_change_report(bool &is_random);
+enum class Settings { Mode,
+                      Random };
+void settings_change_report(Settings param, bool &state);

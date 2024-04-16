@@ -29,7 +29,7 @@ class Field {
 
   void check_coords(int x, int y, bool is_bot) const;
 
-  void check_shot(int x, int y);
+  void check_shot(int x, int y, bool is_bot);
 
   void hit_field(int x, int y);
 

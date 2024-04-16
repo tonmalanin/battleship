@@ -14,4 +14,4 @@ void do_game();
 
 void install_ships(std::vector<Player> &players);
 
-Player add_player(int id);
+Player add_player(int id, bool is_bot);

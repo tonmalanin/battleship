@@ -1,9 +1,9 @@
 #pragma once
 
-#include <memory>
-#include <string>
-#include <random>
 #include <chrono>
+#include <memory>
+#include <random>
+#include <string>
 
 #include "Field.h"
 #include "IOManager.h"
@@ -15,9 +15,10 @@ class Player {
 
   std::string name;
   Field fld;
+  bool is_bot;
 
  public:
-  explicit Player(std::string &name, const Field &field);
+  explicit Player(std::string &name, const Field &field, bool is_bot);
 
   void place_ships();
 

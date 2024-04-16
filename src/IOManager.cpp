@@ -126,14 +126,31 @@ void notify(Notice note, const std::string &name) {
     case Notice::OtherField:
       std::cout << "Enemy's field:" << std::endl;
       break;
+    case Notice::EnemyMove:
+      std::cout << "Your enemy is making move" << std::endl;
+      break;
   }
 }
 
-void settings_change_report(bool& is_random) {
-  std::cout << "Place ships randomly? (y/n): ";
+void settings_change_report(Settings param, bool &state) {
   char fl;
-  std::cin >> fl;
-  if (fl == 'y') {
-    is_random = true;
+  switch (param) {
+    case Settings::Random:
+      std::cout << "Place ships randomly? (y/n): ";
+      std::cin >> fl;
+      if (fl == 'y') {
+        state = true;
+      }
+      break;
+    case Settings::Mode:
+      std::cout << "Choose mode (1/2): ";
+      std::cin >> fl;
+      if (fl == '1') {
+        state = true;
+        std::cout << "Single mode" << std::endl;
+      } else {
+        std::cout << "Couple mode" << std::endl;
+      }
+      break;
   }
 }

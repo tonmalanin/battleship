@@ -1,11 +1,15 @@
+#include "Player.h"
 #include "gtest/gtest.h"
 
-#include "Player.h"
+class PlayerTestCase : public ::testing::Test {
+ public:
+  static std::string name;
+  static Player p;
+};
 
-class PlayerTestCase : public ::testing::Test {};
+std::string PlayerTestCase::name = "";
+Player PlayerTestCase::p(name, Field(), true);
 
-TEST(PlayerTestCase, GetName) {
-  std::string name = "";
-  Player p(name, Field(), true);
-  EXPECT_EQ("", p.get_name());
-}
+TEST_F(PlayerTestCase, GetName) { EXPECT_EQ("", p.get_name()); }
+
+TEST_F(PlayerTestCase, Lost) { EXPECT_TRUE(p.lost()); }

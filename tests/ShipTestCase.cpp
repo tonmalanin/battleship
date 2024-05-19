@@ -1,10 +1,14 @@
-#include "gtest/gtest.h"
-
 #include "Ships.h"
+#include "gtest/gtest.h"
 
 class ShipTestCase : public ::testing::Test {};
 
 TEST(ShipTestCase, CheckState) {
   Ship s(5, 'a');
-  EXPECT_EQ(true, s.check_state());
+  EXPECT_TRUE(s.check_state());
+}
+
+TEST(ShipTestCase, GetOrient) {
+  Ship s(5, 'a');
+  EXPECT_EQ('a', s.check_state());
 }

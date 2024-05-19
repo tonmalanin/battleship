@@ -16,11 +16,23 @@ void display_ship(char orient);
 
 void draw_field(std::vector<std::vector<char>> &field_char);
 
-enum class Error { Coords,
-                   Shot,
-                   Surroundings };
+struct Error {
+  virtual void report() = 0;
+};
 
-void report_error(Error err);
+struct CoordsError : public Error {
+  void report() final;
+};
+
+struct ShotError : public Error {
+  void report() final;
+};
+
+struct SurroundingsError : public Error {
+  void report() final;
+};
+
+void report_error(Error* err);
 
 std::string get_coords(int size);
 

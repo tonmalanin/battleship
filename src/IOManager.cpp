@@ -65,18 +65,20 @@ void draw_field(std::vector<std::vector<char>> &field_char) {
   }
 }
 
-void report_error(Error err) {
-  switch (err) {
-    case Error::Coords:
-      std::cout << "Out of bounds! Enter again!" << std::endl;
-      break;
-    case Error::Shot:
-      std::cout << "You've already shot there! Enter the coordinates again!" << std::endl;
-      break;
-    case Error::Surroundings:
-      std::cout << "The new ship touches with the old one! Enter again!" << std::endl;
-      break;
-  }
+void CoordsError::report() {
+  std::cout << "Out of bounds! Enter again!" << std::endl;
+}
+
+void ShotError::report() {
+  std::cout << "You've already shot there! Enter the coordinates again!" << std::endl;
+}
+
+void SurroundingsError::report() {
+  std::cout << "The new ship touches with the old one! Enter again!" << std::endl;
+}
+
+void report_error(Error* err) {
+  err->report();
 }
 
 std::string get_coords(int size) {

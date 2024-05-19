@@ -52,7 +52,8 @@ void Field::create_ship(int lth, int x, int y, char orient, bool is_bot) {
 void Field::check_coords(int x, int y, bool is_bot) const {
   if (x < 0 or x >= sz or y < 0 or y >= sz) {
     if (!is_bot) {
-      report_error(Error::Coords);
+      CoordsError err;
+      report_error(&err);
     }
     throw std::exception();
   }
@@ -63,7 +64,8 @@ void Field::check_shot(int x, int y, bool is_bot) {
   y %= sz;
   if (mt[x][y].was_hit) {
     if (!is_bot) {
-      report_error(Error::Shot);
+      ShotError err;
+      report_error(&err);
     }
     throw std::exception();
   }
@@ -93,7 +95,8 @@ int Field::get_ships_num() const {
 void Field::check_surroundings(int x, int y, bool is_bot) {
   if (mt[x][y].id != -1 or (x != 0 and mt[x - 1][y].id != -1) or (x != 0 and y != sz - 1 and mt[x - 1][y + 1].id != -1) or (y != sz - 1 and mt[x][y + 1].id != -1) or (x != sz - 1 and y != sz - 1 and mt[x + 1][y + 1].id != -1) or (x != sz - 1 and mt[x + 1][y].id != -1) or (x != sz - 1 and y != 0 and mt[x + 1][y - 1].id != -1) or (y != 0 and mt[x][y - 1].id != -1) or (x != 0 and y != 0 and mt[x - 1][y - 1].id != -1)) {
     if (!is_bot) {
-      report_error(Error::Surroundings);
+      SurroundingsError err;
+      report_error(&err);
     }
     throw std::exception();
   }

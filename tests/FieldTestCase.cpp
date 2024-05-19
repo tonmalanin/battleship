@@ -1,10 +1,14 @@
-#include "gtest/gtest.h"
-
 #include "Field.h"
+#include "gtest/gtest.h"
 
 class FieldTestCase : public ::testing::Test {};
 
-TEST(FieldTestCase, CheckCorrectCoords) {
+TEST(FieldTestCase, DisplayOwnField) {
   Field f(20);
-  EXPECT_NO_THROW(f.check_coords(0, 0, true));
+  EXPECT_NO_THROW(f.display_own_field());
+}
+
+TEST(FieldTestCase, DisplayOtherField) {
+  Field f(20);
+  EXPECT_NO_THROW(f.display_other_field());
 }

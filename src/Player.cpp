@@ -5,7 +5,8 @@ Player::Player(std::string &name, const Field &field, bool is_bot) : name(name),
 void Player::place_ships() {
   bool is_random = is_bot;
   if (!is_bot) {
-    notify(Notice::Place, name);
+    PlaceNotice note;
+    notify(&note, name);
     settings_change_report(Settings::Random, is_random);
   }
   for (int i = 0; i < kShipsNumber; ++i) {
@@ -48,9 +49,11 @@ void Player::place_ships() {
 
 void Player::fire(Player &other) const {
   if (!is_bot) {
-    notify(Notice::Move, name);
+    MoveNotice note;
+    notify(&note, name);
   } else {
-    notify(Notice::EnemyMove, "");
+    EnemyMoveNotice note;
+    notify(&note, "");
   }
   int x;
   int y;

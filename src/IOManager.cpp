@@ -110,28 +110,34 @@ std::string get_orient() {
   return orient;
 }
 
-void notify(Notice note, const std::string &name) {
-  if (note != Notice::OtherField) {
-    sleep(2);
-    system("clear");
-  }
-  switch (note) {
-    case Notice::Place:
-      std::cout << "Place your ships, " << name << std::endl;
-      break;
-    case Notice::Move:
-      std::cout << "Make your move, " << name << std::endl;
-      break;
-    case Notice::YourField:
-      std::cout << "Your field:" << std::endl;
-      break;
-    case Notice::OtherField:
-      std::cout << "Enemy's field:" << std::endl;
-      break;
-    case Notice::EnemyMove:
-      std::cout << "Your enemy is making move" << std::endl;
-      break;
-  }
+void PlaceNotice::notify(const std::string& name) {
+  sleep(2);
+  system("clear");
+  std::cout << "Place your ships, " << name << std::endl;
+}
+
+void MoveNotice::notify(const std::string& name) {
+  sleep(2);
+  system("clear");
+  std::cout << "Make your move, " << name << std::endl;
+}
+
+void YourFieldNotice::notify(const std::string&) {
+  sleep(2);
+  system("clear");
+  std::cout << "Your field:" << std::endl;
+}
+
+void OtherFieldNotice::notify(const std::string&) {
+  std::cout << "Enemy's field:" << std::endl;
+}
+
+void EnemyMoveNotice::notify(const std::string&) {
+  std::cout << "Your enemy is making move" << std::endl;
+}
+
+void notify(Notice* note, const std::string &name) {
+  note->notify(name);
 }
 
 void settings_change_report(Settings param, bool &state) {

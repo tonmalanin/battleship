@@ -107,7 +107,8 @@ bool Field::check_sunken_around(int x, int y) {
 }
 
 void Field::display_other_field() {
-  notify(Notice::OtherField, "");
+  OtherFieldNotice note;
+  notify(&note, "");
   std::vector<std::vector<char>> field_char(sz);
   for (int i = 0; i < sz; ++i) {
     for (int j = 0; j < sz; ++j) {
@@ -126,7 +127,8 @@ void Field::display_other_field() {
 }
 
 void Field::display_own_field() const {
-  notify(Notice::YourField, "");
+  YourFieldNotice note;
+  notify(&note, "");
   std::vector<std::vector<char>> field_char(sz);
   for (int i = 0; i < sz; ++i) {
     for (int j = 0; j < sz; ++j) {

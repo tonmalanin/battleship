@@ -38,13 +38,31 @@ std::string get_coords(int size);
 
 std::string get_orient();
 
-enum class Notice { Place,
-                    Move,
-                    YourField,
-                    OtherField,
-                    EnemyMove };
+struct Notice {
+  virtual void notify(const std::string& name) = 0;
+};
 
-void notify(Notice note, const std::string &player);
+struct PlaceNotice : public Notice {
+  void notify(const std::string& name) final;
+};
+
+struct MoveNotice : public Notice {
+  void notify(const std::string& name) final;
+};
+
+struct YourFieldNotice : public Notice {
+  void notify(const std::string&) final;
+};
+
+struct OtherFieldNotice : public Notice {
+  void notify(const std::string&) final;
+};
+
+struct EnemyMoveNotice : public Notice {
+  void notify(const std::string&) final;
+};
+
+void notify(Notice* note, const std::string &player);
 
 enum class Settings { Mode,
                       Random };

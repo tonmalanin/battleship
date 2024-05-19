@@ -9,10 +9,6 @@ void Ship::get_shot(int part) {
   --state;
 }
 
-bool Ship::check_state() const {
-  return state > 0;
-}
+bool Ship::check_state() const { return state > 0; }
 
-char Ship::get_orient() const {
-  return orient;
-}
+char Ship::get_orient() const { return orient; }

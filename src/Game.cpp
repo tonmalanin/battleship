@@ -1,6 +1,6 @@
 #include "../include/Game.h"
 
-std::shared_ptr<Player> decide_winner(std::vector<Player> &players) {
+std::shared_ptr<Player> decide_winner(std::vector<Player>& players) {
   std::vector<std::shared_ptr<Player>> players_left;
   for (auto player : players) {
     if (!player.lost()) {
@@ -13,7 +13,7 @@ std::shared_ptr<Player> decide_winner(std::vector<Player> &players) {
   return nullptr;
 }
 
-void make_shot(std::vector<Player> &players, int attacker) {
+void make_shot(std::vector<Player>& players, int attacker) {
   int defender = (attacker + 1) % players.size();
   players[attacker].fire(players[defender]);
 }
@@ -37,7 +37,7 @@ void do_game() {
   finish_message(winner->get_name());
 }
 
-void install_ships(std::vector<Player> &players) {
+void install_ships(std::vector<Player>& players) {
   players[0].place_ships();
   players[1].place_ships();
 }
@@ -50,6 +50,6 @@ Player add_player(int id, bool is_bot) {
   } else {
     name = "";
   }
-  Player player(name, field, is_bot);
+  Player player(name, std::move(field), is_bot);
   return player;
 }

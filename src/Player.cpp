@@ -1,6 +1,7 @@
 #include "../include/Player.h"
 
-Player::Player(std::string &name, const Field &field, bool is_bot) : name(name), fld(field), is_bot(is_bot) {}
+Player::Player(std::string& name, Field&& field, bool is_bot)
+    : name(name), fld(field), is_bot(is_bot) {}
 
 void Player::place_ships() {
   bool is_random = is_bot;
@@ -26,7 +27,8 @@ void Player::place_ships() {
         y = coords[0] - 'A';
         orient = get_orient();
       } else {
-        std::mt19937 rnd(std::chrono::steady_clock::now().time_since_epoch().count());
+        std::mt19937 rnd(
+            std::chrono::steady_clock::now().time_since_epoch().count());
         x = rnd();
         y = rnd();
         x = abs(x);
@@ -48,7 +50,7 @@ void Player::place_ships() {
   }
 }
 
-void Player::fire(Player &other) const {
+void Player::fire(Player& other) const {
   if (!is_bot) {
     MoveNotice note;
     notify(&note, name);
@@ -71,7 +73,8 @@ void Player::fire(Player &other) const {
       x = coords[1] - '0';
       y = coords[0] - 'A';
     } else {
-      std::mt19937 rnd(std::chrono::steady_clock::now().time_since_epoch().count());
+      std::mt19937 rnd(
+          std::chrono::steady_clock::now().time_since_epoch().count());
       x = rnd();
       y = rnd();
       x = abs(x);
@@ -87,10 +90,6 @@ void Player::fire(Player &other) const {
   other.fld.hit_field(x, y);
 }
 
-std::string &Player::get_name() {
-  return name;
-}
+std::string& Player::get_name() { return name; }
 
-bool Player::lost() {
-  return fld.get_ships_num() == 0;
-}
+bool Player::lost() { return fld.get_ships_num() == 0; }

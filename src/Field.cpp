@@ -88,12 +88,17 @@ void Field::hit_field(int x, int y) {
   }
 }
 
-int Field::get_ships_num() const {
-  return ships_num;
-}
+int Field::get_ships_num() const { return ships_num; }
 
 void Field::check_surroundings(int x, int y, bool is_bot) {
-  if (mt[x][y].id != -1 or (x != 0 and mt[x - 1][y].id != -1) or (x != 0 and y != sz - 1 and mt[x - 1][y + 1].id != -1) or (y != sz - 1 and mt[x][y + 1].id != -1) or (x != sz - 1 and y != sz - 1 and mt[x + 1][y + 1].id != -1) or (x != sz - 1 and mt[x + 1][y].id != -1) or (x != sz - 1 and y != 0 and mt[x + 1][y - 1].id != -1) or (y != 0 and mt[x][y - 1].id != -1) or (x != 0 and y != 0 and mt[x - 1][y - 1].id != -1)) {
+  if (mt[x][y].id != -1 or (x != 0 and mt[x - 1][y].id != -1) or
+      (x != 0 and y != sz - 1 and mt[x - 1][y + 1].id != -1) or
+      (y != sz - 1 and mt[x][y + 1].id != -1) or
+      (x != sz - 1 and y != sz - 1 and mt[x + 1][y + 1].id != -1) or
+      (x != sz - 1 and mt[x + 1][y].id != -1) or
+      (x != sz - 1 and y != 0 and mt[x + 1][y - 1].id != -1) or
+      (y != 0 and mt[x][y - 1].id != -1) or
+      (x != 0 and y != 0 and mt[x - 1][y - 1].id != -1)) {
     if (!is_bot) {
       SurroundingsError err;
       report_error(&err);
@@ -103,7 +108,22 @@ void Field::check_surroundings(int x, int y, bool is_bot) {
 }
 
 bool Field::check_sunken_around(int x, int y) {
-  return (x != 0 and mt[x - 1][y].id != -1 and !ships[mt[x - 1][y].id].check_state()) or (x != 0 and y != sz - 1 and mt[x - 1][y + 1].id != -1 and !ships[mt[x - 1][y + 1].id].check_state()) or (y != sz - 1 and mt[x][y + 1].id != -1 and !ships[mt[x][y + 1].id].check_state()) or (x != sz - 1 and y != sz - 1 and mt[x + 1][y + 1].id != -1 and !ships[mt[x + 1][y + 1].id].check_state()) or (x != sz - 1 and mt[x + 1][y].id != -1 and !ships[mt[x + 1][y].id].check_state()) or (x != sz - 1 and y != 0 and mt[x + 1][y - 1].id != -1 and !ships[mt[x + 1][y - 1].id].check_state()) or (y != 0 and mt[x][y - 1].id != -1 and !ships[mt[x][y - 1].id].check_state()) or (x != 0 and y != 0 and mt[x - 1][y - 1].id != -1 and !ships[mt[x - 1][y - 1].id].check_state());
+  return (x != 0 and mt[x - 1][y].id != -1 and
+          !ships[mt[x - 1][y].id].check_state()) or
+         (x != 0 and y != sz - 1 and mt[x - 1][y + 1].id != -1 and
+          !ships[mt[x - 1][y + 1].id].check_state()) or
+         (y != sz - 1 and mt[x][y + 1].id != -1 and
+          !ships[mt[x][y + 1].id].check_state()) or
+         (x != sz - 1 and y != sz - 1 and mt[x + 1][y + 1].id != -1 and
+          !ships[mt[x + 1][y + 1].id].check_state()) or
+         (x != sz - 1 and mt[x + 1][y].id != -1 and
+          !ships[mt[x + 1][y].id].check_state()) or
+         (x != sz - 1 and y != 0 and mt[x + 1][y - 1].id != -1 and
+          !ships[mt[x + 1][y - 1].id].check_state()) or
+         (y != 0 and mt[x][y - 1].id != -1 and
+          !ships[mt[x][y - 1].id].check_state()) or
+         (x != 0 and y != 0 and mt[x - 1][y - 1].id != -1 and
+          !ships[mt[x - 1][y - 1].id].check_state());
 }
 
 void Field::display_other_field() {

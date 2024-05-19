@@ -5,7 +5,7 @@ void start_message() {
   std::cout << "Game started" << std::endl;
 }
 
-void finish_message(std::string &winner) {
+void finish_message(std::string& winner) {
   sleep(2);
   system("clear");
   std::cout << "Player " << winner << " won";
@@ -49,7 +49,7 @@ void display_ship(char orient) {
   }
 }
 
-void draw_field(std::vector<std::vector<char>> &field_char) {
+void draw_field(std::vector<std::vector<char>>& field_char) {
   std::cout << "  ";
   for (int i = 0; i < 10; ++i) {
     char column = 'A' + i;
@@ -70,26 +70,28 @@ void CoordsError::report() {
 }
 
 void ShotError::report() {
-  std::cout << "You've already shot there! Enter the coordinates again!" << std::endl;
+  std::cout << "You've already shot there! Enter the coordinates again!"
+            << std::endl;
 }
 
 void SurroundingsError::report() {
-  std::cout << "The new ship touches with the old one! Enter again!" << std::endl;
+  std::cout << "The new ship touches with the old one! Enter again!"
+            << std::endl;
 }
 
-void report_error(Error* err) {
-  err->report();
-}
+void report_error(Error* err) { err->report(); }
 
 std::string get_coords(int size) {
   if (size == 0) {
     std::cout << "Enter the coordinates: ";
   } else {
-    std::cout << "Enter the coordinates of the bow of a ship of length " << size << ": ";
+    std::cout << "Enter the coordinates of the bow of a ship of length " << size
+              << ": ";
   }
   std::string coords;
   std::cin >> coords;
-  if (coords.size() != 2 or coords[0] < 'A' or coords[0] > 'J' or coords[1] < '0' or coords[1] > '9') {
+  if (coords.size() != 2 or coords[0] < 'A' or coords[0] > 'J' or
+      coords[1] < '0' or coords[1] > '9') {
     std::cout << "Incorrect coordinates! Enter again!" << std::endl;
     throw std::exception();
   }
@@ -101,7 +103,8 @@ std::string get_orient() {
   while (true) {
     std::cout << "Enter ship orientation (n/e/s/w): ";
     std::cin >> orient;
-    if (orient.size() != 1 or (orient[0] != 'n' and orient[0] != 'e' and orient[0] != 's' and orient[0] != 'w')) {
+    if (orient.size() != 1 or (orient[0] != 'n' and orient[0] != 'e' and
+                               orient[0] != 's' and orient[0] != 'w')) {
       std::cout << "Incorrect orientation! Enter again!" << std::endl;
       continue;
     }
@@ -136,11 +139,9 @@ void EnemyMoveNotice::notify(const std::string&) {
   std::cout << "Your enemy is making move" << std::endl;
 }
 
-void notify(Notice* note, const std::string &name) {
-  note->notify(name);
-}
+void notify(Notice* note, const std::string& name) { note->notify(name); }
 
-void ModeSettings::change(bool &state) {
+void ModeSettings::change(bool& state) {
   char fl;
   std::cout << "Choose mode (1/2): ";
   std::cin >> fl;
@@ -152,7 +153,7 @@ void ModeSettings::change(bool &state) {
   }
 }
 
-void RandomSettings::change(bool &state) {
+void RandomSettings::change(bool& state) {
   char fl;
   std::cout << "Place ships randomly? (y/n): ";
   std::cin >> fl;
@@ -161,6 +162,6 @@ void RandomSettings::change(bool &state) {
   }
 }
 
-void settings_change_report(Settings* param, bool &state) {
+void settings_change_report(Settings* param, bool& state) {
   param->change(state);
 }

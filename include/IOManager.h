@@ -64,6 +64,16 @@ struct EnemyMoveNotice : public Notice {
 
 void notify(Notice* note, const std::string &player);
 
-enum class Settings { Mode,
-                      Random };
-void settings_change_report(Settings param, bool &state);
+struct Settings {
+  virtual void change(bool& state) = 0;
+};
+
+struct ModeSettings : public Settings {
+  void change(bool& state) final;
+};
+
+struct RandomSettings : public Settings {
+  void change(bool& state) final;
+};
+
+void settings_change_report(Settings* param, bool &state);

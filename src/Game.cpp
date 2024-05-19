@@ -21,7 +21,8 @@ void make_shot(std::vector<Player> &players, int attacker) {
 void do_game() {
   start_message();
   bool is_single = false;
-  settings_change_report(Settings::Mode, is_single);
+  ModeSettings param;
+  settings_change_report(&param, is_single);
   Player player1 = add_player(1, false);
   Player player2 = add_player(2, is_single);
   std::vector<Player> players = {player1, player2};

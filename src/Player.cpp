@@ -7,7 +7,8 @@ void Player::place_ships() {
   if (!is_bot) {
     PlaceNotice note;
     notify(&note, name);
-    settings_change_report(Settings::Random, is_random);
+    RandomSettings param;
+    settings_change_report(&param, is_random);
   }
   for (int i = 0; i < kShipsNumber; ++i) {
     while (true) {

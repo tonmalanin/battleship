@@ -140,25 +140,27 @@ void notify(Notice* note, const std::string &name) {
   note->notify(name);
 }
 
-void settings_change_report(Settings param, bool &state) {
+void ModeSettings::change(bool &state) {
   char fl;
-  switch (param) {
-    case Settings::Random:
-      std::cout << "Place ships randomly? (y/n): ";
-      std::cin >> fl;
-      if (fl == 'y') {
-        state = true;
-      }
-      break;
-    case Settings::Mode:
-      std::cout << "Choose mode (1/2): ";
-      std::cin >> fl;
-      if (fl == '1') {
-        state = true;
-        std::cout << "Single mode" << std::endl;
-      } else {
-        std::cout << "Couple mode" << std::endl;
-      }
-      break;
+  std::cout << "Choose mode (1/2): ";
+  std::cin >> fl;
+  if (fl == '1') {
+    state = true;
+    std::cout << "Single mode" << std::endl;
+  } else {
+    std::cout << "Couple mode" << std::endl;
   }
+}
+
+void RandomSettings::change(bool &state) {
+  char fl;
+  std::cout << "Place ships randomly? (y/n): ";
+  std::cin >> fl;
+  if (fl == 'y') {
+    state = true;
+  }
+}
+
+void settings_change_report(Settings* param, bool &state) {
+  param->change(state);
 }

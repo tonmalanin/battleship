@@ -13,6 +13,7 @@ class Field {
     bool was_hit = false;
     int id = -1;
     int part = 0;
+    bool operator==(const Cell& other) const = default;
   };
 
   int sz;
@@ -42,4 +43,6 @@ class Field {
   void display_own_field() const;
 
   bool check_sunken_around(int x, int y);
+
+  bool operator==(const Field& other) const = default;
 };

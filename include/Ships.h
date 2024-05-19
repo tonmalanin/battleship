@@ -17,4 +17,6 @@ class Ship {
   bool check_state() const;
 
   char get_orient() const;
+
+  bool operator==(const Ship& other) const = default;
 };

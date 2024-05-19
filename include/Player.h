@@ -28,4 +28,6 @@ class Player {
   std::string& get_name();
 
   bool lost();
+
+  bool operator==(const Player& other) const = default;
 };

@@ -10,5 +10,5 @@ TEST(ShipTestCase, CheckState) {
 
 TEST(ShipTestCase, GetOrient) {
   Ship s(5, 'a');
-  EXPECT_EQ('a', s.check_state());
+  EXPECT_EQ('a', s.get_orient());
 }

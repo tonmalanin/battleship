@@ -17,5 +17,8 @@ include_directories(include)
 add_executable(battleship main.cpp)
 
 add_subdirectory(src)
+
+enable_testing()
 add_subdirectory(tests)
+
 target_link_libraries(battleship Field Game IOManager Player Ships)
